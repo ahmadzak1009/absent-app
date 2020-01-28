@@ -17,7 +17,7 @@ router.get("/", verify, async (req, res) => {
 
 router.get("/:id", verify, async (req, res) => {
   try {
-    const response = await User.findOne({ _id: req.params.id }).select("-password");
+    const response = await User.findOne({ _id: req.params.id });
     if (response === null) return res.status(404).send("user not found");
 
     res.json(response);

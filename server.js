@@ -8,7 +8,7 @@ require("dotenv").config();
 
 const PORT = process.env.PORT || 5000;
 const app = express();
-const server = express().listen(PORT, () => console.log(`Connected on Port ${PORT}`));
+const server = app.listen(PORT, () => console.log(`Connected on Port ${PORT}`));
 // const server = http.createServer(app);
 const io = socketio.listen(server);
 

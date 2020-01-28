@@ -7,13 +7,13 @@ const verify = require("./verifyToken");
 router.post("/login", async (req, res) => {
   try {
     const user = await User.findOne({ email: req.body.email });
-    if (!user) return res.status(404).send("Email not found!");
+    if (!user) return res.send("Email not found!");
 
     const cekPassword = await bcrypt.compare(req.body.password, user.password);
-    if (!cekPassword) return res.status(401).send("Password incorrect!");
+    if (!cekPassword) return res.send("Password incorrect!");
 
     const token = jwt.sign({ id: user.email, status: user.status }, process.env.JWT_SECRET_TOKEN);
-    res.json({ email: user.email, status: user.status, token });
+    res.json({ id: user._id, token });
   } catch (err) {
     res.status(400).send(err);
   }
